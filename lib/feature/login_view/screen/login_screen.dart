@@ -169,7 +169,7 @@ class LoginBottomSheet extends StatelessWidget {
                   'Login',
                   style: globalTextStyle(
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w800,
                     color: Colors.white,
                   ),
                 ),
@@ -179,7 +179,7 @@ class LoginBottomSheet extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: 'Don\'t have any account? ',
-                    style: globalTextStyle(fontSize: 14.sp, color: Colors.grey),
+                    style: globalTextStyle(fontSize: 14.sp, color: Color(0xFF5E5E5E)),
                     children: [
                       TextSpan(
                         text: 'Register Now',
