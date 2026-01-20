@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:scube_app/splash/screen/splash_screen.dart';
+import 'package:scube_app/feature/splash_view/screen/splash_screen.dart';
 
 
 class AppRoute {
@@ -10,6 +10,8 @@ class AppRoute {
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => SplashScreen()),
+    GetPage(name: splashScreen, page: () => SplashScreen()),
+
    
   
    
