@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 80.h),
-              Image.asset(LogoPath.logo, height: 100, width: 98),
+              Image.asset(LogoPath.logo, height: 110, width: 100),
               SizedBox(height: 20.h),
               Text(
                 'SCUBE ',

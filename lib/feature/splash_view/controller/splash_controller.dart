@@ -11,8 +11,8 @@ class SplashController extends GetxController {
 
 
     void startDelay() {
-    Timer(Duration(seconds: 3), () {
-      Get.offNamed(AppRoute.splashScreen);
+    Timer(Duration(seconds: 1), () {
+      Get.offNamed(AppRoute.loginScreen);
     });
   }
 
