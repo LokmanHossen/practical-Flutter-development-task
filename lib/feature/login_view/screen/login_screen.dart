@@ -5,7 +5,9 @@ import 'package:scube_app/core/constants/app_colors.dart';
 import 'package:scube_app/core/constants/app_sizer.dart';
 import 'package:scube_app/core/constants/logo_path.dart';
 import 'package:scube_app/core/style/global_text_style.dart';
+import 'package:scube_app/feature/dashboard_view/screens/dashboard_screen.dart';
 import 'package:scube_app/feature/login_view/controller/login_controller.dart';
+import 'package:scube_app/routes/app_routes.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -155,9 +157,12 @@ class LoginBottomSheet extends StatelessWidget {
                   ),
                 ),
               ),
+
               SizedBox(height: 16.h),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoute.dashboardScreen);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -179,7 +184,10 @@ class LoginBottomSheet extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: 'Don\'t have any account? ',
-                    style: globalTextStyle(fontSize: 14.sp, color: Color(0xFF5E5E5E)),
+                    style: globalTextStyle(
+                      fontSize: 14.sp,
+                      color: Color(0xFF5E5E5E),
+                    ),
                     children: [
                       TextSpan(
                         text: 'Register Now',
