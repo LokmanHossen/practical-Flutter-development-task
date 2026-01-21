@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
+import '../../../routes/app_routes.dart';
 
 class SplashController extends GetxController {
   @override
@@ -11,8 +11,8 @@ class SplashController extends GetxController {
 
 
     void startDelay() {
-    Timer(Duration(seconds: 3), () {
-      Get.offNamed(AppRoute.splashScreen);
+    Timer(Duration(seconds: 1), () {
+      Get.offNamed(AppRoute.loginScreen);
     });
   }
 
