@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scube_app/core/constants/app_sizer.dart';
 import 'package:scube_app/feature/dashboard_view/controller/dashboard_controller.dart';
 
 class TemperatureScreen extends StatelessWidget {
@@ -25,34 +26,8 @@ class TemperatureScreen extends StatelessWidget {
                 windDirection: controller.windDirection.value,
                 irradiation: controller.irradiation.value,
                 weatherIcon: controller.weatherIcon.value,
+                temperatureColor: controller.temperatureColor.value,
               ),
-            ),
-            SizedBox(height: 24),
-            Text(
-              'Simulate Time-Based Changes',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
-            TimeButton(
-              time: '11:00 am - 12:00 pm',
-              temperature: 17,
-              icon: Icons.wb_cloudy,
-              onPressed: () => controller.updateWeather(17, Icons.wb_cloudy),
-            ),
-            SizedBox(height: 12),
-            TimeButton(
-              time: '12:00 pm - 01:00 pm',
-              temperature: 30,
-              icon: Icons.wb_sunny,
-              onPressed: () => controller.updateWeather(30, Icons.wb_sunny),
-            ),
-            SizedBox(height: 12),
-            TimeButton(
-              time: '02:30 pm - 03:30 pm',
-              temperature: 19,
-              icon: Icons.nightlight_round,
-              onPressed: () =>
-                  controller.updateWeather(19, Icons.nightlight_round),
             ),
           ],
         ),
@@ -67,66 +42,97 @@ class TemperatureCard extends StatelessWidget {
   final String windDirection;
   final double irradiation;
   final IconData weatherIcon;
+  final Color temperatureColor;
 
   const TemperatureCard({
-    Key? key,
+    super.key,
     required this.temperature,
     required this.windSpeed,
     required this.windDirection,
     required this.irradiation,
     required this.weatherIcon,
-  }) : super(key: key);
+    required this.temperatureColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+
+        gradient: LinearGradient(
+          colors: [Colors.blue[400]!, Colors.purple[400]!],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         boxShadow: [
           BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
         ],
       ),
       child: Row(
         children: [
-          // Left side - Temperature
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '$temperature°C',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue[600],
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    'Module',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
-                  ),
-                  Text(
-                    'Temperature',
-                    style: TextStyle(fontSize: 10, color: Colors.grey[700]),
-                  ),
-                ],
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
               ),
             ),
-          ),
-          // Thermometer with labels
-          Container(
-            width: 100, // Increased width for labels
-            height: 130,
-            child: CustomPaint(
-              painter: ThermometerPainter(temperature: temperature),
+            padding: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '$temperature°',
+                          style: TextStyle(
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w600,
+                            color: temperatureColor,
+                          ),
+                        ),
+                        Text(
+                          'C',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: temperatureColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 28),
+                    Text(
+                      'Module',
+                      style: TextStyle(fontSize: 16, color: Color(0xFF5E5E5E)),
+                    ),
+                    Text(
+                      'Temperature',
+                      style: TextStyle(fontSize: 14, color: Color(0xFF5E5E5E)),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 12),
+                SizedBox(
+                  width: 50,
+                  height: 130,
+                  child: CustomPaint(
+                    painter: ThermometerPainter(
+                      temperature: temperature,
+                      temperatureColor: temperatureColor,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          // Right side - Weather info
+         
           Expanded(
             flex: 3,
             child: Container(
@@ -134,11 +140,6 @@ class TemperatureCard extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(16),
                   bottomRight: Radius.circular(16),
-                ),
-                gradient: LinearGradient(
-                  colors: [Colors.blue[400]!, Colors.purple[400]!],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
                 ),
               ),
               padding: EdgeInsets.all(20),
@@ -202,8 +203,12 @@ class TemperatureCard extends StatelessWidget {
 
 class ThermometerPainter extends CustomPainter {
   final int temperature;
+  final Color temperatureColor;
 
-  ThermometerPainter({required this.temperature});
+  ThermometerPainter({
+    required this.temperature,
+    required this.temperatureColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -212,10 +217,8 @@ class ThermometerPainter extends CustomPainter {
       ..strokeWidth = 2
       ..color = Colors.grey[800]!;
 
-    // Calculate thermometer position (right side of labels)
-    final thermometerLeft = 30.0; // Leave space for labels
-    final thermometerCenterX =
-        thermometerLeft + 10; // Center of thermometer tube
+    final thermometerLeft = 30.0;
+    final thermometerCenterX = thermometerLeft + 10;
 
     // Draw thermometer tube
     final tubeRect = RRect.fromRectAndRadius(
@@ -227,12 +230,12 @@ class ThermometerPainter extends CustomPainter {
     // Draw bulb
     canvas.drawCircle(Offset(thermometerCenterX, size.height - 15), 16, paint);
 
-    // Fill thermometer based on temperature
+    // Fill thermometer based on temperature with dynamic color
     final fillPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = temperature > 25 ? Colors.red : Colors.blue;
+      ..color = temperatureColor;
 
-    // Calculate fill height (temperature ranges from 0-45°C)
+    // Calculate fill height
     final maxTemp = 45.0;
     final minTemp = 0.0;
     final tempRange = maxTemp - minTemp;
@@ -241,9 +244,9 @@ class ThermometerPainter extends CustomPainter {
 
     final fillRect = RRect.fromRectAndRadius(
       Rect.fromLTWH(
-        thermometerLeft + 2,
-        size.height - 30 - fillHeight,
-        16,
+        thermometerLeft + 3,
+        size.height - 40 - fillHeight,
+        14,
         fillHeight + 15,
       ),
       Radius.circular(8),
@@ -262,28 +265,20 @@ class ThermometerPainter extends CustomPainter {
       ..color = Colors.grey[600]!
       ..strokeWidth = 1;
 
-    // Draw temperature labels on the left side
     final textPainter = TextPainter(textDirection: TextDirection.ltr);
 
     final labels = ['45°C', '30°C', '15°C', '0°C'];
-    final labelPositions = [
-      0.0,
-      1 / 3,
-      2 / 3,
-      1.0,
-    ]; // Positions from top to bottom
+    final labelPositions = [0.0, 1 / 3, 2 / 3, 1.0];
 
     for (int i = 0; i < labels.length; i++) {
       final y = 35 + (labelPositions[i] * (size.height - 80));
 
-      // Draw scale mark line
       canvas.drawLine(
         Offset(thermometerLeft - 5, y),
         Offset(thermometerLeft, y),
         markPaint,
       );
 
-      // Draw label
       textPainter.text = TextSpan(
         text: labels[i],
         style: TextStyle(
@@ -301,7 +296,6 @@ class ThermometerPainter extends CustomPainter {
         ),
       );
 
-      // Draw horizontal guide line across thermometer
       canvas.drawLine(
         Offset(thermometerLeft, y),
         Offset(thermometerLeft + 20, y),
@@ -310,72 +304,8 @@ class ThermometerPainter extends CustomPainter {
           ..strokeWidth = 0.5,
       );
     }
-
-    textPainter.text = TextSpan(
-      text: '${temperature}°C',
-      style: TextStyle(
-        color: Colors.blue[800]!,
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-    textPainter.layout();
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
-
-class TimeButton extends StatelessWidget {
-  final String time;
-  final int temperature;
-  final IconData icon;
-  final VoidCallback onPressed;
-
-  const TimeButton({
-    Key? key,
-    required this.time,
-    required this.temperature,
-    required this.icon,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 2,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.orange, size: 30),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  time,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                Text(
-                  '$temperature°C',
-                  style: TextStyle(fontSize: 14, color: Colors.blue[600]),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
-        ],
-      ),
-    );
-  }
 }
