@@ -1,72 +1,61 @@
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'dart:async';
+import 'package:scube_app/feature/dashboard_view/model/dashboard_one_model.dart';
 
-class TemperatureController extends GetxController {
-  var temperature = 17.obs;
-  var windSpeed = 26.obs;
-  var windDirection = 'NW'.obs;
-  var irradiation = 15.20.obs;
-  var weatherIcon = Icons.wb_cloudy.obs;
-  var temperatureColor = Colors.blue.obs;
 
-  Timer? _timer;
+class DashboardOneController extends GetxController {
+  final Rx<SolarData> solarData = SolarData.initial().obs;
 
   @override
   void onInit() {
     super.onInit();
-    updateWeatherBasedOnTime();
-    _timer = Timer.periodic(Duration(minutes: 1), (timer) {
-      updateWeatherBasedOnTime();
-    });
+    loadData();
   }
 
-  @override
-  void onClose() {
-    _timer?.cancel();
-    super.onClose();
+  void loadData() {
+    solarData.value = SolarData(
+      liveAcPower: 10000,
+      plantGeneration: 82.58,
+      livePr: 85.61,
+      cumulativePr: 27.58,
+      returnPv: 10000,
+      totalEnergy: 10000,
+      yesterdayAcMaxPower: 1636.50,
+      todayAcMaxPower: 2121.88,
+      yesterdayNetEnergy: 6439.16,
+      todayNetEnergy: 4875.77,
+      yesterdaySpecificYield: 1.25,
+      todaySpecificYield: 0.94,
+      totalPvModules: 6372,
+      pcsPerModule: 585,
+      totalAcCapacity: 3000,
+      totalDcCapacity: 3.727,
+      commissioningDate: '17/07/2024',
+      inverterCount: 30,
+      inverters: [
+        InverterData(
+          id: 'LT_01',
+          power: 495.505,
+          voltage: 440,
+          lifetimeEnergy: 352.96,
+          prevMeterEnergy: 0.00,
+          todayEnergy: 273.69,
+          livePower: 352.96,
+        ),
+        InverterData(
+          id: 'LT_01',
+          power: 495.505,
+          voltage: 440,
+          lifetimeEnergy: 352.96,
+          prevMeterEnergy: 0.00,
+          todayEnergy: 273.69,
+          livePower: 352.96,
+        ),
+      ],
+    );
   }
 
-  void updateWeatherBasedOnTime() {
-    final now = DateTime.now();
-    final currentTime = TimeOfDay.fromDateTime(now);
-    final currentMinutes = currentTime.hour * 60 + currentTime.minute;
-
-    // 11:00 AM - 12:00 PM (660 - 720 minutes)
-    if (currentMinutes >= 660 && currentMinutes < 720) {
-      temperature.value = 17;
-      weatherIcon.value = Icons.wb_cloudy;
-      temperatureColor.value = Colors.blue;
-      windSpeed.value = 26;
-      windDirection.value = 'NW';
-      irradiation.value = 15.20;
-    }
-    // 12:00 PM - 01:00 PM (720 - 780 minutes)
-    else if (currentMinutes >= 720 && currentMinutes < 780) {
-      temperature.value = 30;
-      weatherIcon.value = Icons.wb_sunny;
-      temperatureColor.value = Colors.red;
-      windSpeed.value = 18;
-      windDirection.value = 'N';
-      irradiation.value = 25.50;
-    }
-    // 02:30 PM - 03:30 PM (870 - 930 minutes)
-    else if (currentMinutes >= 870 && currentMinutes < 930) {
-      temperature.value = 19;
-      weatherIcon.value = Icons.nightlight_round;
-      temperatureColor.value = Colors.green;
-      windSpeed.value = 22;
-      windDirection.value = 'NE';
-      irradiation.value = 18.30;
-    }
-    // Default for other times
-    else {
-      temperature.value = 20;
-      weatherIcon.value = Icons.wb_sunny;
-      temperatureColor.value = Colors.orange;
-      windSpeed.value = 20;
-      windDirection.value = 'N';
-      irradiation.value = 20.00;
-    }
+  void navigateToSecondPage() {
+    Get.snackbar('Navigation', '2nd Page Navigate clicked');
   }
 }

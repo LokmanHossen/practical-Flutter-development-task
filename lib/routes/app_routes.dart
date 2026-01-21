@@ -12,7 +12,7 @@ class AppRoute {
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: loginScreen, page: () => LoginScreen()),
-    GetPage(name: dashboardOneScreen, page: () => TemperatureScreen()),
+    GetPage(name: dashboardOneScreen, page: () => DashboardOneScreen()),
 
 
   ];
