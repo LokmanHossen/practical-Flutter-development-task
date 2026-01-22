@@ -51,7 +51,7 @@ class DashboardTwoScreen extends StatelessWidget {
               const SizedBox(height: 16),
             
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Container(
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
@@ -128,7 +128,7 @@ class DashboardTwoScreen extends StatelessWidget {
               const SizedBox(height: 16),
           
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: Obx(
                   () => GridView.builder(
                     shrinkWrap: true,
@@ -136,8 +136,8 @@ class DashboardTwoScreen extends StatelessWidget {
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: 2.5,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 2.8,
                     ),
                     itemCount: controller.actionItems.length,
                     itemBuilder: (context, index) {
