@@ -5,7 +5,7 @@ class EnergyData {
   final String data1;
   final String data2;
   final bool isActive;
-  final IconData icon;
+  final String image;
   final Color color;
 
   EnergyData({
@@ -13,15 +13,15 @@ class EnergyData {
     required this.data1,
     required this.data2,
     required this.isActive,
-    required this.icon,
+    required this.image,
     required this.color,
   });
 }
 
 class ActionItem {
   final String title;
-  final IconData icon;
-  final Color color;
+  final String image;
 
-  ActionItem({required this.title, required this.icon, required this.color});
+
+  ActionItem({required this.title, required this.image,});
 }

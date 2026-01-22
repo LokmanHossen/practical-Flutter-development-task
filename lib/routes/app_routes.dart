@@ -8,7 +8,7 @@ class AppRoute {
   static String splashScreen = "/splashScreen";
   static String loginScreen = "/loginScreen";
   static String dashboardOneScreen = "/dashboardOneScreen";
-  static String dashboardTwoScreen = "/dashboardOneScreen";
+  static String dashboardTwoScreen = "/dashboardTwoScreen";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => SplashScreen()),

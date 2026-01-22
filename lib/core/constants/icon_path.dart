@@ -25,4 +25,17 @@ class IconPath {
   static const String powerIcon = '$_basePath/power.png';
   static const String todayEnergyIcon = '$_basePath/today_energy.png';
   static const String notificationIcon = '$_basePath/bell.png';
+
+  static const String solarTwoIcon = '$_basePath/solar2.png';
+  static const String typeTwoIcon = '$_basePath/type2.png';
+  static const String typeThreeIcon = '$_basePath/type3.png';
+
+
+  static const String waterIcon = '$_basePath/water.png';
+  static const String gassIcon = '$_basePath/gass.png';
+  static const String analysisIcon = '$_basePath/analysis.png';
+  static const String gGeneratorIcon = '$_basePath/g_generator.png';
+  static const String pluginIcon = '$_basePath/plugin.png';
+
+
 }
