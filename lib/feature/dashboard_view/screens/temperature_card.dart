@@ -25,7 +25,7 @@ class TemperatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
           colors: [Color(0xFF2E63F7), Color(0xFFB982D9)],
           begin: Alignment.topLeft,
@@ -47,8 +47,8 @@ class TemperatureCard extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),
                 bottomRight: Radius.circular(16),
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
               ),
             ),
             padding: const EdgeInsets.all(16),

@@ -151,7 +151,7 @@ class DashboardOneScreen extends StatelessWidget {
                 subtitle: 'Live AC Power',
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
                 imagePath: IconPath.gererationIcon,
@@ -161,7 +161,7 @@ class DashboardOneScreen extends StatelessWidget {
                 subtitle: 'Plant Generation',
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
                 imagePath: IconPath.liveIcon,
@@ -173,7 +173,7 @@ class DashboardOneScreen extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         Row(
           children: [
             Expanded(
@@ -185,7 +185,7 @@ class DashboardOneScreen extends StatelessWidget {
                 subtitle: 'Cumulative PR',
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
                 imagePath: IconPath.returnIcon,
@@ -198,7 +198,7 @@ class DashboardOneScreen extends StatelessWidget {
                 smallSubtitle: true,
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
                 imagePath: IconPath.energyIcon,
@@ -244,9 +244,10 @@ class DashboardOneScreen extends StatelessWidget {
     ];
 
     return Container(
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
@@ -344,10 +345,10 @@ class DashboardOneScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
@@ -387,8 +388,8 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: InfoCard(
-                imagePath: IconPath.solarIcon,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.acIcon2,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total AC Capacity',
                 value: '${data.totalAcCapacity.toInt()} KW',
@@ -397,8 +398,8 @@ class DashboardOneScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: InfoCard(
-                imagePath: IconPath.solarIcon,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.dcIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total DC Capacity',
                 value: '${data.totalDcCapacity} MWp',
@@ -411,8 +412,8 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: InfoCard(
-                icon: Icons.calendar_today_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.dateIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Date of Commissioning',
                 value: data.commissioningDate,
@@ -421,8 +422,8 @@ class DashboardOneScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: InfoCard(
-                icon: Icons.devices_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.numberIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Number of Inverter',
                 value: '${data.inverterCount}',
@@ -435,8 +436,8 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: InfoCard(
-                icon: Icons.power_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.acIcon2,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total AC Capacity',
                 value: '${data.totalAcCapacity.toInt()} KW',
@@ -445,8 +446,8 @@ class DashboardOneScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: InfoCard(
-                icon: Icons.battery_charging_full_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.dcIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total DC Capacity',
                 value: '${data.totalDcCapacity} MWp',
@@ -460,10 +461,10 @@ class DashboardOneScreen extends StatelessWidget {
 
   Widget _buildInverterCard(InverterData inverter) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
@@ -473,46 +474,36 @@ class DashboardOneScreen extends StatelessWidget {
               Text(
                 inverter.id,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: AppColors.textPrimaryColor,
                 ),
               ),
               Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE3F2FD),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.bolt_rounded,
-                      color: Color(0xFF2196F3),
-                      size: 20,
-                    ),
-                  ),
+                  Image.asset(IconPath.ltIcon, width: 16, height: 16),
                   const SizedBox(width: 8),
                   Text(
                     '${inverter.power} kWp / ${inverter.voltage.toInt()} kW',
-                    style: const TextStyle(
-                      color: Color(0xFF2196F3),
+                    style: TextStyle(
+                      color: Color(0xFF0684D9),
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                      fontSize: 10,
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          Divider(height: 20, color: Color(0xFFAFCCDF)),
+
           Row(
             children: [
               Expanded(
                 child: Column(
                   children: [
                     InverterMetric(
-                      icon: Icons.flash_on_rounded,
+                      icon: IconPath.lifetimeIocn,
                       iconColor: const Color(0xFF2196F3),
                       iconBgColor: const Color(0xFFE3F2FD),
                       label: 'Lifetime Energy',
@@ -520,7 +511,7 @@ class DashboardOneScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     InverterMetric(
-                      icon: Icons.bolt_outlined,
+                      icon: IconPath.metterIcon,
                       iconColor: const Color(0xFFFF9800),
                       iconBgColor: const Color(0xFFFFF3E0),
                       label: 'Prev. Meter Energy',
@@ -534,7 +525,7 @@ class DashboardOneScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     InverterMetric(
-                      icon: Icons.hourglass_bottom_rounded,
+                      icon: IconPath.todayEnergyIcon,
                       iconColor: const Color(0xFFFFB300),
                       iconBgColor: const Color(0xFFFFF8E1),
                       label: 'Today Energy',
@@ -542,7 +533,7 @@ class DashboardOneScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     InverterMetric(
-                      icon: Icons.power_outlined,
+                      icon: IconPath.powerIcon,
                       iconColor: const Color(0xFF9C27B0),
                       iconBgColor: const Color(0xFFF3E5F5),
                       label: 'Live Power',
@@ -561,7 +552,6 @@ class DashboardOneScreen extends StatelessWidget {
 
 class MetricCard extends StatelessWidget {
   final String imagePath;
-  // final Color iconColor;
   final Color iconBgColor;
   final String title;
   final String subtitle;
@@ -572,7 +562,6 @@ class MetricCard extends StatelessWidget {
   const MetricCard({
     super.key,
     required this.imagePath,
-    // required this.iconColor,
     required this.iconBgColor,
     required this.title,
     required this.subtitle,
@@ -587,7 +576,7 @@ class MetricCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
@@ -598,8 +587,6 @@ class MetricCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Image.asset(imagePath, width: 12, height: 12),
-
-            //Icon(imagePath, color: iconColor, size: 10),
           ),
           const SizedBox(width: 4),
           Column(
@@ -644,7 +631,7 @@ class MetricCard extends StatelessWidget {
 
 class InfoCard extends StatelessWidget {
   final String imagePath;
-  final Color iconColor;
+
   final Color iconBgColor;
   final String title;
   final String value;
@@ -652,7 +639,7 @@ class InfoCard extends StatelessWidget {
   const InfoCard({
     super.key,
     required this.imagePath,
-    required this.iconColor,
+
     required this.iconBgColor,
     required this.title,
     required this.value,
@@ -661,24 +648,22 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: iconBgColor,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
             ),
-            child: Image.asset(imagePath, width: 12, height: 12),
-
-            //Icon(icon, color: iconColor, size: 24),
+            child: Image.asset(imagePath, width: 16, height: 16),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 6),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -687,7 +672,7 @@ class InfoCard extends StatelessWidget {
                   title,
                   style: TextStyle(
                     fontSize: 10,
-                    color: Colors.grey[600],
+                    color: AppColors.textPrimaryColor,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -710,7 +695,7 @@ class InfoCard extends StatelessWidget {
 }
 
 class InverterMetric extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final Color iconColor;
   final Color iconBgColor;
   final String label;
@@ -731,12 +716,12 @@ class InverterMetric extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: iconBgColor,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
           ),
-          child: Icon(icon, color: iconColor, size: 22),
+          child: Image.asset(icon, width: 16, height: 16),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -746,7 +731,7 @@ class InverterMetric extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 8,
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w400,
                 ),
@@ -755,8 +740,8 @@ class InverterMetric extends StatelessWidget {
               Text(
                 value,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.textPrimaryColor,
                 ),
               ),
