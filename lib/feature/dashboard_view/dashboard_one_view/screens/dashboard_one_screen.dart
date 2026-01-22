@@ -46,7 +46,7 @@ class DashboardOneScreen extends StatelessWidget {
       ),
       body: Obx(
         () => SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
           child: SafeArea(
             child: Column(
               children: [
@@ -88,7 +88,6 @@ class DashboardOneScreen extends StatelessWidget {
     return InkWell(
       onTap: () => Get.to(() => DashboardTwoScreen()),
 
-      //controller.navigateToSecondPage,
       child: Container(
         // height: 32,
         padding: const EdgeInsets.symmetric(vertical: 12),
