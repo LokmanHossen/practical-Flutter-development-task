@@ -24,6 +24,7 @@ class TemperatureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(right: 3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
@@ -40,6 +41,7 @@ class TemperatureCard extends StatelessWidget {
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -55,7 +57,6 @@ class TemperatureCard extends StatelessWidget {
             child: Row(
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -174,6 +175,7 @@ class TemperatureCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 50, height: 50, child: weatherIcon),
+          // SizedBox(width: 5),
         ],
       ),
     );

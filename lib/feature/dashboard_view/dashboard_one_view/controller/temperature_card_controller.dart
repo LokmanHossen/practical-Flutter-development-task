@@ -10,7 +10,7 @@ class TemperatureController extends GetxController {
   var windDirection = 'NW'.obs;
   var irradiation = 15.20.obs;
   var weatherIcon = Image.asset(IconPath.cloudIcon).obs;
-  var temperatureColor = Colors.blue.obs;
+  var temperatureColor = Rx<Color>(Colors.blue);
 
   Timer? _timer;
 
@@ -38,7 +38,7 @@ class TemperatureController extends GetxController {
     if (currentMinutes >= 660 && currentMinutes < 720) {
       temperature.value = 17;
       weatherIcon.value = Image.asset(IconPath.cloudIcon);
-      temperatureColor.value = Colors.blue;
+      temperatureColor.value = Color(0xFF0096FC);
       windSpeed.value = 26;
       windDirection.value = 'NW';
       irradiation.value = 15.20;
@@ -47,7 +47,7 @@ class TemperatureController extends GetxController {
     else if (currentMinutes >= 720 && currentMinutes < 780) {
       temperature.value = 30;
       weatherIcon.value = Image.asset(IconPath.sunnyIcon);
-      temperatureColor.value = Colors.red;
+      temperatureColor.value = Color(0xFFE9380B);
       windSpeed.value = 18;
       windDirection.value = 'N';
       irradiation.value = 25.50;
@@ -56,7 +56,7 @@ class TemperatureController extends GetxController {
     else if (currentMinutes >= 870 && currentMinutes < 930) {
       temperature.value = 19;
       weatherIcon.value = Image.asset(IconPath.moonIcon);
-      temperatureColor.value = Colors.green;
+      temperatureColor.value = Color(0xFF228096);
       windSpeed.value = 22;
       windDirection.value = 'NE';
       irradiation.value = 18.30;
