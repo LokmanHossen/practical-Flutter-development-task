@@ -6,6 +6,7 @@ import 'package:scube_app/feature/dashboard_view/dashboard_one_view/controller/t
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/controller/dashboard_one_controller.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/model/dashboard_one_model.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/widgets/temperature_card.dart';
+import 'package:scube_app/feature/dashboard_view/dashboard_two_view/screen/dashboard_two_screen.dart';
 
 class DashboardOneScreen extends StatelessWidget {
   const DashboardOneScreen({super.key});
@@ -21,6 +22,7 @@ class DashboardOneScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -84,7 +86,9 @@ class DashboardOneScreen extends StatelessWidget {
 
   Widget _buildNavigateButton(DashboardOneController controller) {
     return InkWell(
-      onTap: controller.navigateToSecondPage,
+      onTap: () => Get.to(() => DashboardTwoScreen()),
+
+      //controller.navigateToSecondPage,
       child: Container(
         // height: 32,
         padding: const EdgeInsets.symmetric(vertical: 12),

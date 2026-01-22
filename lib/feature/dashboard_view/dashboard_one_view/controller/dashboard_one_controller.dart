@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/model/dashboard_one_model.dart';
+import 'package:scube_app/routes/app_routes.dart';
 
 class DashboardOneController extends GetxController {
   final Rx<SolarData> solarData = SolarData.initial().obs;
@@ -54,6 +55,6 @@ class DashboardOneController extends GetxController {
   }
 
   void navigateToSecondPage() {
-    Get.snackbar('Navigation', '2nd Page Navigate clicked');
+    Get.toNamed(AppRoute.dashboardTwoScreen);
   }
 }
