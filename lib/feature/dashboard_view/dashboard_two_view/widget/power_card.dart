@@ -35,7 +35,6 @@ class PowerChart extends StatelessWidget {
               ),
             ),
           ),
-          // Center text
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

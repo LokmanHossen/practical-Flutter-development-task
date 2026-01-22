@@ -8,7 +8,7 @@ class SecondPageController extends GetxController {
   final selectedSource = 'Source'.obs;
 
   final totalPower = 5.53.obs;
-  final powerPercentage = 0.75.obs; // 75% of circle filled
+  final powerPercentage = 0.75.obs;
 
   final energyDataList = <EnergyData>[
     EnergyData(

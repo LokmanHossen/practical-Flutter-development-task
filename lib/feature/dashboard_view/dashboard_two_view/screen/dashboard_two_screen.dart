@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scube_app/core/constants/app_colors.dart';
 import 'package:scube_app/core/constants/icon_path.dart';
-import 'package:scube_app/feature/dashboard_view/dashboard_one_view/screens/dashboard_one_screen.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_two_view/controller/dashboard_two_controller.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_two_view/widget/bottom_grid_view.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_two_view/widget/data_type_card.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_two_view/widget/power_card.dart';
+import 'package:scube_app/routes/app_routes.dart';
 
 class DashboardTwoScreen extends StatelessWidget {
   const DashboardTwoScreen({super.key});
@@ -156,7 +156,7 @@ class DashboardTwoScreen extends StatelessWidget {
 
   Widget _buildNavigateButton() {
     return InkWell(
-      onTap: () => Get.to(() => DashboardOneScreen()),
+      onTap: () => Get.toNamed(AppRoute.dashboardOneScreen),
 
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),

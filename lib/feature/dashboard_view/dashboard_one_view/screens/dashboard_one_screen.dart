@@ -9,7 +9,7 @@ import 'package:scube_app/feature/dashboard_view/dashboard_one_view/widgets/syst
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/widgets/temperature_card.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/widgets/top_metrics.dart';
 import 'package:scube_app/feature/dashboard_view/dashboard_one_view/widgets/yesterday_data_container.dart';
-import 'package:scube_app/feature/dashboard_view/dashboard_two_view/screen/dashboard_two_screen.dart';
+import 'package:scube_app/routes/app_routes.dart';
 
 class DashboardOneScreen extends StatelessWidget {
   const DashboardOneScreen({super.key});
@@ -89,10 +89,9 @@ class DashboardOneScreen extends StatelessWidget {
 
   Widget _buildNavigateButton(DashboardOneController controller) {
     return InkWell(
-      onTap: () => Get.to(() => DashboardTwoScreen()),
+      onTap: () => Get.toNamed(AppRoute.dashboardTwoScreen),
 
       child: Container(
-        // height: 32,
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: Color(0xFF00C0E8),

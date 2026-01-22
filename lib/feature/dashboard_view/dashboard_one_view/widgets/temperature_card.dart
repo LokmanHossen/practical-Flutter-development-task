@@ -97,6 +97,7 @@ class TemperatureCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(width: 8),
 
                 SizedBox(
                   width: 45,
@@ -174,8 +175,8 @@ class TemperatureCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 50, height: 50, child: weatherIcon),
-          // SizedBox(width: 5),
+          Expanded(child: SizedBox(width: 50, height: 50, child: weatherIcon)),
+        
         ],
       ),
     );
@@ -199,10 +200,10 @@ class ThermometerPainter extends CustomPainter {
       ..color = Colors.grey[800]!;
 
     final thermometerLeft = 25.0;
-    final thermometerCenterX = thermometerLeft + 7;
+    final thermometerCenterX = thermometerLeft + 7.4;
 
     final tubeRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(thermometerLeft, 0, 14, size.height - 30),
+      Rect.fromLTWH(thermometerLeft, 0, 14.2, size.height - 32),
       Radius.circular(7),
     );
     canvas.drawRRect(tubeRect, paint);
@@ -223,8 +224,8 @@ class ThermometerPainter extends CustomPainter {
       Rect.fromLTWH(
         thermometerLeft + 2.5,
         size.height - 48 - fillHeight,
-        9.2,
-        fillHeight + 17,
+        9.5,
+        fillHeight + 22,
       ),
       Radius.circular(5),
     );

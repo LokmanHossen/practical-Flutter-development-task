@@ -34,13 +34,13 @@ class LoginScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 8.0.h),
+                SizedBox(height: 2.0.h),
                 Text(
                   'Control & Monitoring System ',
                   style: globalTextStyle(
                     color: AppColors.secondary,
                     fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: 8.0.h),

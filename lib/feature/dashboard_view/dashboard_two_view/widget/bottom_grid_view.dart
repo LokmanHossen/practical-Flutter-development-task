@@ -12,6 +12,7 @@ class BottomGridView extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Color(0xFFB6B8D0))
        
       ),
       child: Material(

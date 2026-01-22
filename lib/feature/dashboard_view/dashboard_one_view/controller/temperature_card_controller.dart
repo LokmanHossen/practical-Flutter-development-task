@@ -34,7 +34,7 @@ class TemperatureController extends GetxController {
     final currentTime = TimeOfDay.fromDateTime(now);
     final currentMinutes = currentTime.hour * 60 + currentTime.minute;
 
-    // 11:00 AM - 12:00 PM (660 - 720 minutes)
+    // 11:00 AM - 12:00 PM 
     if (currentMinutes >= 660 && currentMinutes < 720) {
       temperature.value = 17;
       weatherIcon.value = Image.asset(IconPath.cloudIcon);
@@ -43,7 +43,7 @@ class TemperatureController extends GetxController {
       windDirection.value = 'NW';
       irradiation.value = 15.20;
     }
-    // 12:00 PM - 01:00 PM (720 - 780 minutes)
+    // 12:00 PM - 01:00 PM
     else if (currentMinutes >= 720 && currentMinutes < 780) {
       temperature.value = 30;
       weatherIcon.value = Image.asset(IconPath.sunnyIcon);
@@ -52,7 +52,7 @@ class TemperatureController extends GetxController {
       windDirection.value = 'N';
       irradiation.value = 25.50;
     }
-    // 02:30 PM - 03:30 PM (870 - 930 minutes)
+    // 02:30 PM - 03:30 PM
     else if (currentMinutes >= 870 && currentMinutes < 930) {
       temperature.value = 19;
       weatherIcon.value = Image.asset(IconPath.moonIcon);
