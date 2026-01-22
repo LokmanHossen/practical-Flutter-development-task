@@ -43,110 +43,112 @@ class DashboardTwoScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Column(
-          children: [
-            _buildNavigateButton(),
-
-            const SizedBox(height: 16),
+        child: SafeArea(
+          child: Column(
+            children: [
+              _buildNavigateButton(),
           
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Color(0xFFB6B8D0), width: 1.5),
-                ),
-                child: Column(
-                  children: [
-                    Obx(
-                      () => Row(
-                        children: [
-                          _buildTab('Summery', 0, controller),
-                          _buildTab('SLD', 1, controller),
-                          _buildTab('Data', 2, controller),
-                        ],
+              const SizedBox(height: 16),
+            
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Color(0xFFB6B8D0), width: 1.5),
+                  ),
+                  child: Column(
+                    children: [
+                      Obx(
+                        () => Row(
+                          children: [
+                            _buildTab('Summery', 0, controller),
+                            _buildTab('SLD', 1, controller),
+                            _buildTab('Data', 2, controller),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-
-                    Text(
-                      'Electricity',
-                      style: TextStyle(
-                        color: Color(0xFF979797),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                      const SizedBox(height: 8),
+          
+                      Text(
+                        'Electricity',
+                        style: TextStyle(
+                          color: Color(0xFF979797),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Divider(color: Color(0xFF979797)),
-
-                    const SizedBox(height: 14),
-                    const PowerChart(),
-                    const SizedBox(height: 20),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      child: Obx(
-                        () => Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFF6C99B8).withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Row(
-                            children: [
-                              _buildSourceButton(
-                                'Source',
-                                controller.selectedSource.value == 'Source',
-                                () => controller.toggleSource('Source'),
-                              ),
-                              _buildSourceButton(
-                                'Load',
-                                controller.selectedSource.value == 'Load',
-                                () => controller.toggleSource('Load'),
-                              ),
-                            ],
+                      Divider(color: Color(0xFF979797)),
+          
+                      const SizedBox(height: 14),
+                      const PowerChart(),
+                      const SizedBox(height: 20),
+          
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: Obx(
+                          () => Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFF6C99B8).withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Row(
+                              children: [
+                                _buildSourceButton(
+                                  'Source',
+                                  controller.selectedSource.value == 'Source',
+                                  () => controller.toggleSource('Source'),
+                                ),
+                                _buildSourceButton(
+                                  'Load',
+                                  controller.selectedSource.value == 'Load',
+                                  () => controller.toggleSource('Load'),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-
-                    const SizedBox(height: 20),
-                    Obx(
-                      () => Column(
-                        children: controller.energyDataList
-                            .map((data) => DataTypeCard(data: data))
-                            .toList(),
+          
+                      const SizedBox(height: 20),
+                      Obx(
+                        () => Column(
+                          children: controller.energyDataList
+                              .map((data) => DataTypeCard(data: data))
+                              .toList(),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Obx(
-                () => GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 2.5,
+                      const SizedBox(height: 16),
+                    ],
                   ),
-                  itemCount: controller.actionItems.length,
-                  itemBuilder: (context, index) {
-                    return BottomGridView(item: controller.actionItems[index]);
-                  },
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 16),
+          
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Obx(
+                  () => GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 2.5,
+                    ),
+                    itemCount: controller.actionItems.length,
+                    itemBuilder: (context, index) {
+                      return BottomGridView(item: controller.actionItems[index]);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
