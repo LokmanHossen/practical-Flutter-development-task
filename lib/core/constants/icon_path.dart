@@ -24,4 +24,5 @@ class IconPath {
   static const String metterIcon = '$_basePath/metter.png';
   static const String powerIcon = '$_basePath/power.png';
   static const String todayEnergyIcon = '$_basePath/today_energy.png';
+  static const String notificationIcon = '$_basePath/bell.png';
 }

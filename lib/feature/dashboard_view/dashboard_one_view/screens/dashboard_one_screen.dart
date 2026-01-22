@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scube_app/core/constants/app_colors.dart';
 import 'package:scube_app/core/constants/icon_path.dart';
-import 'package:scube_app/feature/dashboard_view/controller/temperature_card_controller.dart';
-import 'package:scube_app/feature/dashboard_view/controller/dashboard_one_controller.dart';
-import 'package:scube_app/feature/dashboard_view/model/dashboard_one_model.dart';
-import 'package:scube_app/feature/dashboard_view/screens/temperature_card.dart';
+import 'package:scube_app/feature/dashboard_view/dashboard_one_view/controller/temperature_card_controller.dart';
+import 'package:scube_app/feature/dashboard_view/dashboard_one_view/controller/dashboard_one_controller.dart';
+import 'package:scube_app/feature/dashboard_view/dashboard_one_view/model/dashboard_one_model.dart';
+import 'package:scube_app/feature/dashboard_view/dashboard_one_view/widgets/temperature_card.dart';
 
 class DashboardOneScreen extends StatelessWidget {
   const DashboardOneScreen({super.key});
@@ -30,29 +30,15 @@ class DashboardOneScreen extends StatelessWidget {
           '1st Page',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
+        centerTitle: true,
         actions: [
-          Stack(
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.black,
-                ),
-                onPressed: () {},
-              ),
-              Positioned(
-                right: 12,
-                top: 12,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
+          IconButton(
+            icon: Badge(
+              smallSize: 11,
+              child: Image.asset(IconPath.notificationIcon, height: 24),
+            ),
+
+            onPressed: () {},
           ),
         ],
       ),
@@ -100,12 +86,12 @@ class DashboardOneScreen extends StatelessWidget {
     return InkWell(
       onTap: controller.navigateToSecondPage,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 18),
+        // height: 32,
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF5CB8E6), Color(0xFF67C2EC)],
-          ),
-          borderRadius: BorderRadius.circular(12),
+          color: Color(0xFF00C0E8),
+
+          borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -114,23 +100,12 @@ class DashboardOneScreen extends StatelessWidget {
               '2nd Page Navigate',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(width: 12),
-            Container(
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.3),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-                size: 16,
-              ),
-            ),
+            const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 18),
           ],
         ),
       ),
