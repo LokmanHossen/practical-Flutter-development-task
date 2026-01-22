@@ -76,13 +76,4 @@ class SecondPageController extends GetxController {
   void toggleSource(String source) {
     selectedSource.value = source;
   }
-
-  void navigateToFirstPage() {
-    Get.snackbar(
-      'Navigation',
-      'Navigating to 1st Page',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 2),
-    );
-  }
 }

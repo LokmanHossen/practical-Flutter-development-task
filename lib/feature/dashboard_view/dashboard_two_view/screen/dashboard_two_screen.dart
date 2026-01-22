@@ -75,84 +75,67 @@ class DashboardTwoScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Tab Bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Obx(
-                  () => Row(
-                    children: [
-                      _buildTab('Summery', 0, controller),
-                      _buildTab('SLD', 1, controller),
-                      _buildTab('Data', 2, controller),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
             // Content Card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
+                clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
                 ),
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        'Electricity',
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                    Obx(
+                      () => Row(
+                        children: [
+                          _buildTab('Summery', 0, controller),
+                          _buildTab('SLD', 1, controller),
+                          _buildTab('Data', 2, controller),
+                        ],
                       ),
                     ),
+                    const SizedBox(height: 8),
+
+                    Text(
+                      'Electricity',
+                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
+                    Divider(color: Color(0xFF979797)),
 
                     // Power Chart
                     const PowerChart(),
+
                     const SizedBox(height: 20),
 
                     // Source/Load Toggle
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
                       child: Obx(
-                        () => Row(
-                          children: [
-                            Expanded(
-                              child: _buildSourceButton(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFF6C99B8).withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            children: [
+                              _buildSourceButton(
                                 'Source',
                                 controller.selectedSource.value == 'Source',
                                 () => controller.toggleSource('Source'),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: _buildSourceButton(
+                              _buildSourceButton(
                                 'Load',
                                 controller.selectedSource.value == 'Load',
                                 () => controller.toggleSource('Load'),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
 
-                    // Data Type Cards
+                    const SizedBox(height: 20),
                     Obx(
                       () => Column(
                         children: controller.energyDataList
@@ -167,7 +150,6 @@ class DashboardTwoScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Action Buttons Grid
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Obx(
@@ -200,16 +182,20 @@ class DashboardTwoScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () => controller.changeTab(index),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFF00B4D8) : Colors.white,
-            borderRadius: BorderRadius.circular(8),
+            color: isSelected ? const Color(0xFF0096FC) : Colors.white,
+            border: Border(
+              bottom: BorderSide(
+                color: isSelected ? Colors.transparent : Color(0xFFB6B8D0),
+              ),
+            ),
           ),
           child: Text(
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.grey[600],
+              color: isSelected ? Colors.white : Color(0xFF646984),
               fontSize: 14,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
@@ -220,21 +206,24 @@ class DashboardTwoScreen extends StatelessWidget {
   }
 
   Widget _buildSourceButton(String title, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF00B4D8) : Colors.grey[200],
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey[600],
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFF0EA5E9) : Colors.transparent,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Color(0xFF646984),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.5,
+            ),
           ),
         ),
       ),
@@ -244,34 +233,36 @@ class DashboardTwoScreen extends StatelessWidget {
 
 // ==================== widgets/power_chart.dart ====================
 class PowerChart extends StatelessWidget {
-  const PowerChart({Key? key}) : super(key: key);
+  const PowerChart({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 180,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Background circle (light blue)
           Container(
-            width: 160,
-            height: 160,
+            width: 175,
+            height: 175,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFFB3E5FC), width: 20),
+              border: Border.all(
+                color: Color(0xFF0096FC).withValues(alpha: 0.2),
+                width: 25,
+              ),
             ),
           ),
-          // Foreground arc (dark blue)
+
           SizedBox(
-            width: 160,
-            height: 160,
+            width: 150,
+            height: 150,
             child: CircularProgressIndicator(
               value: 0.75,
-              strokeWidth: 20,
+              strokeWidth: 25,
               backgroundColor: Colors.transparent,
               valueColor: const AlwaysStoppedAnimation<Color>(
-                Color(0xFF00B4D8),
+                Color(0xFF0096FC),
               ),
             ),
           ),
@@ -281,15 +272,18 @@ class PowerChart extends StatelessWidget {
             children: [
               Text(
                 'Total Power',
-                style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                style: TextStyle(
+                  color: AppColors.textPrimaryColor,
+                  fontSize: 14,
+                ),
               ),
               const SizedBox(height: 4),
               const Text(
                 '5.53 kw',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: AppColors.textPrimaryColor,
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -300,13 +294,11 @@ class PowerChart extends StatelessWidget {
   }
 }
 
-// ==================== widgets/data_type_card.dart ====================
-
 // ==================== widgets/action_button.dart ====================
 class ActionButton extends StatelessWidget {
   final ActionItem item;
 
-  const ActionButton({Key? key, required this.item}) : super(key: key);
+  const ActionButton({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
