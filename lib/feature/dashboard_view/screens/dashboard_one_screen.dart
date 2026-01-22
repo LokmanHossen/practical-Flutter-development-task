@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scube_app/core/constants/app_colors.dart';
+import 'package:scube_app/core/constants/icon_path.dart';
 import 'package:scube_app/feature/dashboard_view/controller/temperature_card_controller.dart';
 import 'package:scube_app/feature/dashboard_view/controller/dashboard_one_controller.dart';
 import 'package:scube_app/feature/dashboard_view/model/dashboard_one_model.dart';
 import 'package:scube_app/feature/dashboard_view/screens/temperature_card.dart';
-
 
 class DashboardOneScreen extends StatelessWidget {
   const DashboardOneScreen({super.key});
@@ -13,7 +13,9 @@ class DashboardOneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DashboardOneController controller = Get.put(DashboardOneController());
-    final TemperatureController temperatureController = Get.put(TemperatureController());
+    final TemperatureController temperatureController = Get.put(
+      TemperatureController(),
+    );
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -32,7 +34,10 @@ class DashboardOneScreen extends StatelessWidget {
           Stack(
             children: [
               IconButton(
-                icon: const Icon(Icons.notifications_outlined, color: Colors.black),
+                icon: const Icon(
+                  Icons.notifications_outlined,
+                  color: Colors.black,
+                ),
                 onPressed: () {},
               ),
               Positioned(
@@ -51,38 +56,43 @@ class DashboardOneScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Obx(() => SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildNavigateButton(controller),
-            const SizedBox(height: 16),
-            _buildTopMetrics(controller.solarData.value),
-            const SizedBox(height: 16),
-            Obx(
-              () => TemperatureCard(
-                temperature: temperatureController.temperature.value,
-                windSpeed: temperatureController.windSpeed.value,
-                windDirection: temperatureController.windDirection.value,
-                irradiation: temperatureController.irradiation.value,
-                weatherIcon: temperatureController.weatherIcon.value,
-                temperatureColor: temperatureController.temperatureColor.value,
-              ),
+      body: Obx(
+        () => SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: SafeArea(
+            child: Column(
+              children: [
+                _buildNavigateButton(controller),
+                const SizedBox(height: 16),
+                _buildTopMetrics(controller.solarData.value),
+                const SizedBox(height: 16),
+                Obx(
+                  () => TemperatureCard(
+                    temperature: temperatureController.temperature.value,
+                    windSpeed: temperatureController.windSpeed.value,
+                    windDirection: temperatureController.windDirection.value,
+                    irradiation: temperatureController.irradiation.value,
+                    weatherIcon: temperatureController.weatherIcon.value,
+                    temperatureColor:
+                        temperatureController.temperatureColor.value,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                _buildYesterdayDataContainer(controller.solarData.value),
+                const SizedBox(height: 16),
+                _buildSystemInfo(controller.solarData.value),
+                const SizedBox(height: 16),
+                ...controller.solarData.value.inverters.map(
+                  (inv) => Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: _buildInverterCard(inv),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            _buildYesterdayDataContainer(controller.solarData.value),
-            const SizedBox(height: 16),
-            _buildSystemInfo(controller.solarData.value),
-            const SizedBox(height: 16),
-            ...controller.solarData.value.inverters
-                .map((inv) => Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: _buildInverterCard(inv),
-                    ))
-                ,
-          ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
@@ -112,10 +122,14 @@ class DashboardOneScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.3),
+                color: Colors.white.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16),
+              child: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+                size: 16,
+              ),
             ),
           ],
         ),
@@ -130,64 +144,66 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: MetricCard(
-                icon: Icons.flash_on_rounded,
-                iconColor: const Color(0xFF4CAF50),
-                iconBgColor: const Color(0xFFE8F5E9),
+                imagePath: IconPath.acIcon,
+
+                iconBgColor: const Color(0xFFE9FAE9),
                 title: '${data.liveAcPower.toInt()} kW',
                 subtitle: 'Live AC Power',
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
-                icon: Icons.factory_outlined,
-                iconColor: const Color(0xFF2196F3),
-                iconBgColor: const Color(0xFFE3F2FD),
+                imagePath: IconPath.gererationIcon,
+
+                iconBgColor: const Color(0xFFE7F8F9),
                 title: '${data.plantGeneration} %',
                 subtitle: 'Plant Generation',
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
-                icon: Icons.person_outline,
-                iconColor: const Color(0xFF9C27B0),
-                iconBgColor: const Color(0xFFF3E5F5),
+                imagePath: IconPath.liveIcon,
+
+                iconBgColor: const Color(0xFFF2F2FB),
                 title: '${data.livePr} %',
                 subtitle: 'Live PR',
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         Row(
           children: [
             Expanded(
               child: MetricCard(
-                icon: Icons.show_chart,
-                iconColor: const Color(0xFF2196F3),
-                iconBgColor: const Color(0xFFE3F2FD),
+                imagePath: IconPath.calculativeIcon,
+
+                iconBgColor: const Color(0xFFE4F2FF),
                 title: '${data.cumulativePr} %',
                 subtitle: 'Cumulative PR',
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
-                icon: Icons.currency_exchange,
-                iconColor: const Color(0xFFFF9800),
-                iconBgColor: const Color(0xFFFFF3E0),
+                imagePath: IconPath.returnIcon,
+
+                iconBgColor: const Color(0xFFFDF6EA),
                 title: '${data.returnPv.toInt()} ৳',
-                subtitle: 'Return PV(Till Today)',
+                subtitle: 'Return PV',
+                subSmalltitle: '(Till Today)',
+
                 smallSubtitle: true,
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Expanded(
               child: MetricCard(
-                icon: Icons.energy_savings_leaf_outlined,
-                iconColor: const Color(0xFF9C27B0),
-                iconBgColor: const Color(0xFFF3E5F5),
+                imagePath: IconPath.energyIcon,
+
+                iconBgColor: const Color(0xFFF7E8FD),
                 title: '${data.totalEnergy.toInt()} kWh',
                 subtitle: 'Total Energy',
               ),
@@ -228,47 +244,51 @@ class DashboardOneScreen extends StatelessWidget {
     ];
 
     return Container(
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Expanded(child: SizedBox()),
                 Expanded(
                   child: Text(
                     "Yesterday's Data",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 12,
                       color: AppColors.textPrimaryColor,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Text(
-                    "Today's Data",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: AppColors.textPrimaryColor
-                    ),
+                SizedBox(width: 10),
+                Text(
+                  "Today's Data",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: AppColors.textPrimaryColor,
                   ),
                 ),
               ],
             ),
           ),
-          Divider(height: 1, thickness: 1, color: Colors.grey[300]),
+          Divider(height: 1, thickness: 1, color: Color(0xFF9AA9BC)),
           Column(
             children: List.generate(
               comparisonData.length,
               (index) => Container(
                 color: index.isEven ? Color(0xFFEEF3F9) : Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
                 child: _buildComparisonRow(
                   comparisonData[index]['label']!,
                   comparisonData[index]['yesterday']!,
@@ -284,6 +304,7 @@ class DashboardOneScreen extends StatelessWidget {
 
   Widget _buildComparisonRow(String label, String yesterday, String today) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           flex: 5,
@@ -291,7 +312,7 @@ class DashboardOneScreen extends StatelessWidget {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 15,
+              fontSize: 12,
               color: AppColors.textPrimaryColor,
             ),
           ),
@@ -301,21 +322,19 @@ class DashboardOneScreen extends StatelessWidget {
           child: Text(
             yesterday,
             style: const TextStyle(
-              fontSize: 15,
+              fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimaryColor
+              color: AppColors.textPrimaryColor,
             ),
           ),
         ),
-        Expanded(
-          flex: 4,
-          child: Text(
-            today,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimaryColor
-            ),
+        SizedBox(width: 10),
+        Text(
+          today,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textPrimaryColor,
           ),
         ),
       ],
@@ -326,38 +345,35 @@ class DashboardOneScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE3F2FD),
-                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFFE4F2FF),
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Icon(
-                  Icons.solar_power_outlined,
-                  color: Color(0xFF2196F3),
-                  size: 28,
-                ),
+                child: Image.asset(IconPath.solarIcon, width: 20, height: 20),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 4),
               Expanded(
                 child: RichText(
                   text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: 12,
                       color: AppColors.textPrimaryColor,
                       fontWeight: FontWeight.w400,
                     ),
                     children: [
                       const TextSpan(text: 'Total Num of PV Module   :   '),
                       TextSpan(
-                        text: '${data.totalPvModules} pcs. (${data.pcsPerModule} Wp each)',
+                        text:
+                            '${data.totalPvModules} pcs. (${data.pcsPerModule} Wp each)',
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
@@ -372,8 +388,8 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: InfoCard(
-                icon: Icons.electric_bolt_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.acIcon2,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total AC Capacity',
                 value: '${data.totalAcCapacity.toInt()} KW',
@@ -382,8 +398,8 @@ class DashboardOneScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: InfoCard(
-                icon: Icons.cable_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.dcIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total DC Capacity',
                 value: '${data.totalDcCapacity} MWp',
@@ -396,8 +412,8 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: InfoCard(
-                icon: Icons.calendar_today_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.dateIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Date of Commissioning',
                 value: data.commissioningDate,
@@ -406,8 +422,8 @@ class DashboardOneScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: InfoCard(
-                icon: Icons.devices_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.numberIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Number of Inverter',
                 value: '${data.inverterCount}',
@@ -420,8 +436,8 @@ class DashboardOneScreen extends StatelessWidget {
           children: [
             Expanded(
               child: InfoCard(
-                icon: Icons.power_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.acIcon2,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total AC Capacity',
                 value: '${data.totalAcCapacity.toInt()} KW',
@@ -430,8 +446,8 @@ class DashboardOneScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: InfoCard(
-                icon: Icons.battery_charging_full_outlined,
-                iconColor: const Color(0xFF2196F3),
+                imagePath: IconPath.dcIcon,
+
                 iconBgColor: const Color(0xFFE3F2FD),
                 title: 'Total DC Capacity',
                 value: '${data.totalDcCapacity} MWp',
@@ -445,10 +461,10 @@ class DashboardOneScreen extends StatelessWidget {
 
   Widget _buildInverterCard(InverterData inverter) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [
@@ -458,46 +474,36 @@ class DashboardOneScreen extends StatelessWidget {
               Text(
                 inverter.id,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: AppColors.textPrimaryColor,
                 ),
               ),
               Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE3F2FD),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.bolt_rounded,
-                      color: Color(0xFF2196F3),
-                      size: 20,
-                    ),
-                  ),
+                  Image.asset(IconPath.ltIcon, width: 16, height: 16),
                   const SizedBox(width: 8),
                   Text(
                     '${inverter.power} kWp / ${inverter.voltage.toInt()} kW',
-                    style: const TextStyle(
-                      color: Color(0xFF2196F3),
+                    style: TextStyle(
+                      color: Color(0xFF0684D9),
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                      fontSize: 10,
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          Divider(height: 20, color: Color(0xFFAFCCDF)),
+
           Row(
             children: [
               Expanded(
                 child: Column(
                   children: [
                     InverterMetric(
-                      icon: Icons.flash_on_rounded,
+                      icon: IconPath.lifetimeIocn,
                       iconColor: const Color(0xFF2196F3),
                       iconBgColor: const Color(0xFFE3F2FD),
                       label: 'Lifetime Energy',
@@ -505,7 +511,7 @@ class DashboardOneScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     InverterMetric(
-                      icon: Icons.bolt_outlined,
+                      icon: IconPath.metterIcon,
                       iconColor: const Color(0xFFFF9800),
                       iconBgColor: const Color(0xFFFFF3E0),
                       label: 'Prev. Meter Energy',
@@ -519,7 +525,7 @@ class DashboardOneScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     InverterMetric(
-                      icon: Icons.hourglass_bottom_rounded,
+                      icon: IconPath.todayEnergyIcon,
                       iconColor: const Color(0xFFFFB300),
                       iconBgColor: const Color(0xFFFFF8E1),
                       label: 'Today Energy',
@@ -527,7 +533,7 @@ class DashboardOneScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     InverterMetric(
-                      icon: Icons.power_outlined,
+                      icon: IconPath.powerIcon,
                       iconColor: const Color(0xFF9C27B0),
                       iconBgColor: const Color(0xFFF3E5F5),
                       label: 'Live Power',
@@ -545,59 +551,77 @@ class DashboardOneScreen extends StatelessWidget {
 }
 
 class MetricCard extends StatelessWidget {
-  final IconData icon;
-  final Color iconColor;
+  final String imagePath;
   final Color iconBgColor;
   final String title;
   final String subtitle;
+  final String? subSmalltitle;
+
   final bool smallSubtitle;
 
   const MetricCard({
     super.key,
-    required this.icon,
-    required this.iconColor,
+    required this.imagePath,
     required this.iconBgColor,
     required this.title,
     required this.subtitle,
+    this.subSmalltitle,
+
     this.smallSubtitle = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: iconBgColor,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(icon, color: iconColor, size: 24),
+            child: Image.asset(imagePath, width: 12, height: 12),
           ),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textPrimaryColor,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: smallSubtitle ? 10.5 : 12,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w400,
-            ),
+          const SizedBox(width: 4),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textPrimaryColor,
+                ),
+              ),
+              const SizedBox(height: 4),
+              RichText(
+                text: TextSpan(
+                  text: subtitle,
+                  style: TextStyle(
+                    fontSize: 9,
+                    color: Color(0xFF5E5E5E),
+                    fontWeight: FontWeight.w400,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: subSmalltitle,
+                      style: TextStyle(
+                        fontSize: 6,
+                        color: Color(0xFF5E5E5E),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -606,16 +630,16 @@ class MetricCard extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  final IconData icon;
-  final Color iconColor;
+  final String imagePath;
+
   final Color iconBgColor;
   final String title;
   final String value;
 
   const InfoCard({
     super.key,
-    required this.icon,
-    required this.iconColor,
+    required this.imagePath,
+
     required this.iconBgColor,
     required this.title,
     required this.value,
@@ -624,22 +648,22 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: iconBgColor,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
             ),
-            child: Icon(icon, color: iconColor, size: 24),
+            child: Image.asset(imagePath, width: 16, height: 16),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 6),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -647,8 +671,8 @@ class InfoCard extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
+                    fontSize: 10,
+                    color: AppColors.textPrimaryColor,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -656,7 +680,7 @@ class InfoCard extends StatelessWidget {
                 Text(
                   value,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 10,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textPrimaryColor,
                   ),
@@ -671,7 +695,7 @@ class InfoCard extends StatelessWidget {
 }
 
 class InverterMetric extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final Color iconColor;
   final Color iconBgColor;
   final String label;
@@ -692,12 +716,12 @@ class InverterMetric extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: iconBgColor,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
           ),
-          child: Icon(icon, color: iconColor, size: 22),
+          child: Image.asset(icon, width: 16, height: 16),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -707,7 +731,7 @@ class InverterMetric extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 8,
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w400,
                 ),
@@ -716,8 +740,8 @@ class InverterMetric extends StatelessWidget {
               Text(
                 value,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.textPrimaryColor,
                 ),
               ),

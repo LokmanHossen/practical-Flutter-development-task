@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scube_app/core/constants/app_colors.dart';
 import 'package:scube_app/core/constants/app_sizer.dart';
 import 'package:scube_app/core/style/global_text_style.dart';
+
 class TemperatureCard extends StatelessWidget {
   final int temperature;
   final int windSpeed;
@@ -24,14 +25,18 @@ class TemperatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
           colors: [Color(0xFF2E63F7), Color(0xFFB982D9)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Row(
@@ -42,8 +47,8 @@ class TemperatureCard extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),
                 bottomRight: Radius.circular(16),
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
               ),
             ),
             padding: const EdgeInsets.all(16),
@@ -57,15 +62,15 @@ class TemperatureCard extends StatelessWidget {
                         Text(
                           '$temperature°',
                           style: globalTextStyle(
-                            fontSize: 24.sp,
+                            fontSize: 22.sp,
                             fontWeight: FontWeight.w600,
                             color: temperatureColor,
                           ),
                         ),
-                         Text(
+                        Text(
                           'C',
                           style: globalTextStyle(
-                            fontSize: 20.sp,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             color: temperatureColor,
                           ),
@@ -75,18 +80,26 @@ class TemperatureCard extends StatelessWidget {
                     const SizedBox(height: 35),
                     Text(
                       'Module',
-                      style: globalTextStyle(fontSize: 12, color: AppColors.textPrimaryColor,fontWeight: FontWeight.w600),
+                      style: globalTextStyle(
+                        fontSize: 10,
+                        color: AppColors.textPrimaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Text(
                       'Temperature',
-                        style: globalTextStyle(fontSize: 12, color: AppColors.textPrimaryColor,fontWeight: FontWeight.w600),
+                      style: globalTextStyle(
+                        fontSize: 10,
+                        color: AppColors.textPrimaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(width: 12),
+
                 SizedBox(
-                  width: 50,
-                  height: 110,
+                  width: 45,
+                  height: 105,
                   child: CustomPaint(
                     painter: ThermometerPainter(
                       temperature: temperature,
@@ -107,12 +120,12 @@ class TemperatureCard extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-             
+
               children: [
                 Text(
                   '$windSpeed MPH / $windDirection',
-                  style:  globalTextStyle(
-                    fontSize: 16,
+                  style: globalTextStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
@@ -122,7 +135,8 @@ class TemperatureCard extends StatelessWidget {
                   'Wind Speed & Direction',
                   style: globalTextStyle(
                     fontSize: 10.sp,
-                    color: Colors.white.withValues(alpha:  0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -137,12 +151,12 @@ class TemperatureCard extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 10),
-              
                 Text(
                   '${irradiation.toStringAsFixed(2)} w/m²',
-                  style:  globalTextStyle(
-                    fontSize: 16,
+                  style: globalTextStyle(
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
                   ),
@@ -152,13 +166,14 @@ class TemperatureCard extends StatelessWidget {
                   'Effective Irradiation',
                   style: globalTextStyle(
                     fontSize: 10.sp,
-                    color: Colors.white.withValues(alpha:  0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-           SizedBox(width: 55, height: 50, child: weatherIcon),
+          SizedBox(width: 50, height: 50, child: weatherIcon),
         ],
       ),
     );
@@ -181,11 +196,11 @@ class ThermometerPainter extends CustomPainter {
       ..strokeWidth = 2
       ..color = Colors.grey[800]!;
 
-    final thermometerLeft = 30.0;
+    final thermometerLeft = 25.0;
     final thermometerCenterX = thermometerLeft + 7;
 
     final tubeRect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(thermometerLeft, 10, 14, size.height - 40),
+      Rect.fromLTWH(thermometerLeft, 0, 14, size.height - 30),
       Radius.circular(7),
     );
     canvas.drawRRect(tubeRect, paint);
@@ -196,7 +211,6 @@ class ThermometerPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..color = temperatureColor;
 
-
     final maxTemp = 45.0;
     final minTemp = 0.0;
     final tempRange = maxTemp - minTemp;
@@ -205,10 +219,10 @@ class ThermometerPainter extends CustomPainter {
 
     final fillRect = RRect.fromRectAndRadius(
       Rect.fromLTWH(
-        thermometerLeft + 2,
-        size.height - 40 - fillHeight,
-        10,
-        fillHeight + 15,
+        thermometerLeft + 2.5,
+        size.height - 48 - fillHeight,
+        9.2,
+        fillHeight + 17,
       ),
       Radius.circular(5),
     );
@@ -216,7 +230,7 @@ class ThermometerPainter extends CustomPainter {
 
     canvas.drawCircle(
       Offset(thermometerCenterX, size.height - 15),
-      14,
+      14.5,
       fillPaint,
     );
 
@@ -230,10 +244,10 @@ class ThermometerPainter extends CustomPainter {
     final labelPositions = [0.0, 1 / 3, 2 / 3, 1.0];
 
     for (int i = 0; i < labels.length; i++) {
-      final y = 30 + (labelPositions[i] * (size.height - 70));
+      final y = 15 + (labelPositions[i] * (size.height - 55));
 
       canvas.drawLine(
-        Offset(thermometerLeft - 5, y),
+        Offset(thermometerLeft - 7, y),
         Offset(thermometerLeft, y),
         markPaint,
       );
@@ -243,14 +257,14 @@ class ThermometerPainter extends CustomPainter {
         style: globalTextStyle(
           color: AppColors.textPrimaryColor,
           fontSize: 8,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700,
         ),
       );
       textPainter.layout();
       textPainter.paint(
         canvas,
         Offset(
-          thermometerLeft - 12 - textPainter.width,
+          thermometerLeft - 8 - textPainter.width,
           y - textPainter.height / 2,
         ),
       );
@@ -259,7 +273,7 @@ class ThermometerPainter extends CustomPainter {
         Offset(thermometerLeft, y),
         Offset(thermometerLeft + 20, y),
         Paint()
-          ..color = Colors.grey[300]!.withValues(alpha:  0.3)
+          ..color = Colors.grey[300]!.withValues(alpha: 0.3)
           ..strokeWidth = 0.5,
       );
     }
@@ -268,4 +282,3 @@ class ThermometerPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
-
