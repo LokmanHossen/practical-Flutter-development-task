@@ -57,15 +57,17 @@ class TemperatureCard extends StatelessWidget {
             child: Row(
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                     
                       children: [
                         Text(
                           '$temperature°',
                           style: globalTextStyle(
                             fontSize: 22.sp,
                             fontWeight: FontWeight.w600,
-                            color: temperatureColor,
+                            color: Color(0xFF0096FC),
                           ),
                         ),
                         Text(
@@ -73,7 +75,7 @@ class TemperatureCard extends StatelessWidget {
                           style: globalTextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
-                            color: temperatureColor,
+                            color: Color(0xFF0096FC),
                           ),
                         ),
                       ],

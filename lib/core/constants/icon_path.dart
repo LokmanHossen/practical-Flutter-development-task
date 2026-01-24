@@ -36,6 +36,8 @@ class IconPath {
   static const String analysisIcon = '$_basePath/analysis.png';
   static const String gGeneratorIcon = '$_basePath/g_generator.png';
   static const String pluginIcon = '$_basePath/plugin.png';
+  static const String snowIcon = '$_basePath/snow.png';
+
 
 
 }

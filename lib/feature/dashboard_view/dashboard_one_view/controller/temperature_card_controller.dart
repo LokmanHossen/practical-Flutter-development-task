@@ -64,8 +64,8 @@ class TemperatureController extends GetxController {
     // Default for other times
     else {
       temperature.value = 20;
-      weatherIcon.value = Image.asset(IconPath.sunnyIcon);
-      temperatureColor.value = Colors.orange;
+      weatherIcon.value = Image.asset(IconPath.snowIcon);
+      temperatureColor.value =  Color(0xFFaedbfa);
       windSpeed.value = 20;
       windDirection.value = 'N';
       irradiation.value = 20.00;
