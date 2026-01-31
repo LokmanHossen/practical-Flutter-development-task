@@ -160,7 +160,7 @@ class LoginBottomSheet extends StatelessWidget {
               SizedBox(height: 16.h),
               ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(AppRoute.dashboardOneScreen);
+                  Get.toNamed(AppRoute.dashboardScreen);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,

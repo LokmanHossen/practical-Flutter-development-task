@@ -25,7 +25,7 @@ class DashboardScreen extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         title: Text(
-          isFirstPage ? '1st Page' : '2nd Page',
+          isFirstPage ? '2nd Page' : '1st Page',
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -47,8 +47,8 @@ class DashboardScreen extends StatelessWidget {
               _buildNavigateButton(isFirstPage),
               const SizedBox(height: 16),
               isFirstPage
-                  ? const DashboardOneContent()
-                  : const DashboardTwoContent(),
+                  ? const DashboardTwoContent()
+                  : const DashboardOneContent(),
             ],
           ),
         ),
@@ -75,7 +75,7 @@ class DashboardScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              isFirstPage ? '2nd Page Navigate' : '1st Page Navigate',
+              isFirstPage ?  '1st Page Navigate':'2nd Page Navigate' ,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
