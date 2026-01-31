@@ -21,6 +21,7 @@ class DashboardTwoContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SecondPageController());
+    final ScrollController scrollController = ScrollController();
 
     return Column(
       children: [
@@ -83,14 +84,54 @@ class DashboardTwoContent extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Obx(
-                  () => Column(
-                    children: controller.energyDataList
-                        .map((data) => DataTypeCard(data: data))
-                        .toList(),
+               Obx(
+                  () => SizedBox(
+                    height: 280, // Fixed height for the scrollable area
+                    child: ScrollbarTheme(
+                      data: ScrollbarThemeData(
+                        thickness: WidgetStateProperty.all(6.0),
+                        thumbColor: WidgetStateProperty.all(const Color(0xFF0096FC)),
+                        trackColor: WidgetStateProperty.all(const Color(0xFFE0E0E0)),
+                        trackBorderColor: WidgetStateProperty.all(const Color(0xFFB6B8D0)),
+                        radius: const Radius.circular(10),
+                        thumbVisibility: WidgetStateProperty.all(true),
+                        minThumbLength: 2,
+                        mainAxisMargin: 120,
+                        trackVisibility: WidgetStateProperty.all(true),
+                        interactive: true,
+                      ),
+                      child: Scrollbar(
+                        controller: scrollController,
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        
+                        thickness: 6.0,
+                        radius: const Radius.circular(10),
+                        interactive: true,
+                        child: ListView.builder(
+                          controller: scrollController,
+                          padding: EdgeInsets.zero,
+                          itemCount: controller.energyDataList.length,
+                          itemBuilder: (context, index) {
+                            return DataTypeCard(data: controller.energyDataList[index]);
+                          },
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                // Obx(
+                //   () => 
+                  
+                  
+                  
+                //   Column(
+                //     children: controller.energyDataList
+                //         .map((data) => DataTypeCard(data: data))
+                //         .toList(),
+                //   ),
+                // ),
+                // const SizedBox(height: 16),
               ],
             ),
           ),
